@@ -1,5 +1,5 @@
 package v1
 
-type Source interface {
+type SonicSource interface {
 	Listen() string
 }
