@@ -1,0 +1,44 @@
+app:
+  name: "Hello-App"
+  kind: "core:app"
+  common:
+    - name: "http-listener-config-user"
+      kind: "http:listener-config"
+      configuration:
+        method: "post"
+        host: "localhost"
+        port: "8081"
+        path: "/user"
+    - name: "http-request-config-lake"
+      kind: "http:request-config"
+      configuration:
+        method: "post"
+        host: "localhost"
+        port: "8082"
+        path: "/data"
+  flows:
+    - name: "get-user-flow"
+      kind: "core:flow"
+      components:
+        - name: "http-listener-user"
+          kind: "http:listener"
+          configuration:
+            ref: "http-listener-config-user"
+        - name: "log-user"
+          kind: "core:logger"
+          configuration:
+            level: "INFO"
+        - name: "post-data-to-lake"
+          kind: "flow:flow-ref"
+          configuration:
+            ref: "post-data-to-lake"
+    - name: "post-data-to-lake-flow"
+      kind: "core:flow"
+      components:
+        - name: "for-each-user"
+          kind: "core:for-each"
+          components:
+            - name: "http-request-lake"
+              kind: "http:request"
+              configuration:
+                ref: "http-request-config-lake"
