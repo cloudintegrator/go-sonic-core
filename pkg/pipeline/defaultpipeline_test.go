@@ -9,5 +9,5 @@ import (
 func TestBuildPipeline(t *testing.T) {
 	c := &core.SonicApp{}
 	utility.YamlToStruct("../../spec/app-spec.yaml", c)
-	BuildPipeline(c)
+	ParseSonicApp(c)
 }

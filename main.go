@@ -1,20 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"github.com/cloudintegrator/go-sonic-core/api/core"
 	"log"
 	"plugin"
 )
 
+type IHello interface {
+	Say()
+}
 type Hello struct {
+	name string
 }
 
-func (h Hello) Say() {
-
+func (h *Hello) Say() {
+	fmt.Println(h.name)
 }
 
 func main() {
-
+	var x IHello
+	x = &Hello{
+		name: "anupam",
+	}
+	fmt.Println(x.(*Hello).name)
 }
 
 func kafkaListener() {
