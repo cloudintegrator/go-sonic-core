@@ -11,3 +11,7 @@ func TestYamlToStruct(t *testing.T) {
 	YamlToStruct("../../spec/app-spec.yaml", c)
 	slog.Debug(c.App.Name)
 }
+
+func TestFindComponentInSO(t *testing.T) {
+	FindComponentInSO("", "kafka:listener")
+}

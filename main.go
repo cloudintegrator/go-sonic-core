@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/cloudintegrator/go-sonic-core/api/core"
 	"log"
+	"os"
+	"path/filepath"
 	"plugin"
 )
 
@@ -19,15 +21,19 @@ func (h *Hello) Say() {
 }
 
 func main() {
+	p, _ := os.Getwd()
+	p = filepath.Base(p)
+	fmt.Println(p)
+}
+func InterfaceExample() {
 	var x IHello
 	x = &Hello{
 		name: "anupam",
 	}
 	fmt.Println(x.(*Hello).name)
 }
-
 func kafkaListener() {
-	p, err := plugin.Open("/Users/anupam.gogoi.br/github/anupamgogoi/sonic/go-sonic-kafka-connector/plugin/go-sonic-kafka-connector.so")
+	p, err := plugin.Open("/Users/anupam.gogoi.br/github/anupamgogoi/sonic/go-sonic-kafka-connector/plugin/kafka-listener.so")
 
 	s, err := p.Lookup("INSTANCE_KAFKA_LISTENER")
 

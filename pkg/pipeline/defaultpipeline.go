@@ -5,7 +5,7 @@ import (
 	"log/slog"
 )
 
-var pipeline []interface{}
+var PIPELINE []interface{}
 
 func ParseSonicApp(a *core.SonicApp) {
 	slog.Debug("********** App starting **********" + a.App.Name)
@@ -29,7 +29,7 @@ func InitializeFlowComponents(a *core.SonicApp, flow *core.Flow) {
 			if value != nil {
 				component_config = GetReferenceConfiguration(value.(string), a)
 			}
-
+			BuildPipeiline(component, component_config)
 			slog.Debug("*********** " + value.(string))
 		}
 	}
@@ -46,4 +46,8 @@ func GetReferenceConfiguration(component string, a *core.SonicApp) (out interfac
 		}
 	}
 	return nil
+}
+
+func BuildPipeiline(component core.Component, component_config interface{}) {
+
 }
