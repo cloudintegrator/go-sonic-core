@@ -2,13 +2,12 @@ app:
   name: "Hello-App"
   kind: "core:app"
   common:
-    - name: "http-listener-config-user"
-      kind: "http:listener-config"
+    - name: "kafka-listener-config"
+      kind: "kafka:listener-config"
       configuration:
-        method: "post"
         host: "localhost"
-        port: "8081"
-        path: "/user"
+        port: "29092"
+        topic: "HELLO.TOPIC"
     - name: "http-request-config-lake"
       kind: "http:request-config"
       configuration:
@@ -17,13 +16,13 @@ app:
         port: "8082"
         path: "/data"
   flows:
-    - name: "get-user-flow"
+    - name: "get-data-flow"
       kind: "core:flow"
       components:
-        - name: "http-listener-user"
-          kind: "http:listener"
+        - name: "kafka-listener"
+          kind: "kafka:listener"
           configuration:
-            ref: "http-listener-config-user"
+            ref: "kafka-listener-config"
         - name: "log-user"
           kind: "core:logger"
           configuration:
