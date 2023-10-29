@@ -48,7 +48,7 @@ func GetSOPath(kind string) string {
 	path := "../../" + SO_PATH
 	so := strings.Split(kind, ":")
 	if len(so) != 0 {
-		path = path + so[0] + so[1] + ".so"
+		path = path + so[0] + "-" + so[1] + ".so"
 	}
 	return path
 }

@@ -15,3 +15,7 @@ func TestYamlToStruct(t *testing.T) {
 func TestFindComponentInSO(t *testing.T) {
 	FindComponentInSO("", "kafka:listener")
 }
+
+func TestGetSOPath(t *testing.T) {
+	GetSOPath("kafka:listener")
+}
