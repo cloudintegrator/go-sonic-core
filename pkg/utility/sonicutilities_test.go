@@ -13,9 +13,9 @@ func TestYamlToStruct(t *testing.T) {
 }
 
 func TestFindComponentInSO(t *testing.T) {
-	FindComponentInSO("", "kafka:listener")
+	FindComponentInSO("/Users/anupam.gogoi.br/github/anupamgogoi/sonic/go-sonic-kafka-connector/plugin/", "EXPORT_KAFKA_LISTENER", "kafka:listener")
 }
 
 func TestGetSOPath(t *testing.T) {
-	GetSOPath("kafka:listener")
+	GetSOPath("/Users/anupam.gogoi.br/github/anupamgogoi/sonic/go-sonic-kafka-connector/plugin/", "kafka:listener")
 }

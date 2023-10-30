@@ -6,8 +6,13 @@ import (
 	"testing"
 )
 
-func TestBuildPipeline(t *testing.T) {
+func TestParseSonicApp(t *testing.T) {
 	c := &core.SonicApp{}
 	utility.YamlToStruct("../../spec/app-spec.yaml", c)
-	ParseSonicApp(c)
+
+	p := DefaultPipeline{
+		SOPath:   "/Users/anupam.gogoi.br/github/anupamgogoi/sonic/go-sonic-kafka-connector/plugin/",
+		SonicApp: c,
+	}
+	p.ParseSonicApp()
 }

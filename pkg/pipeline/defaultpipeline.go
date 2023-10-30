@@ -7,15 +7,20 @@ import (
 
 var PIPELINE []interface{}
 
-func ParseSonicApp(a *core.SonicApp) {
-	slog.Debug("********** App starting **********" + a.App.Name)
-	for i := 0; i < len(a.App.Flows); i++ {
-		f := a.App.Flows[i]
-		InitializeFlowComponents(a, &f)
+type DefaultPipeline struct {
+	SOPath   string
+	SonicApp *core.SonicApp
+}
+
+func (p *DefaultPipeline) ParseSonicApp() {
+	slog.Debug("********** App starting **********" + p.SonicApp.App.Name)
+	for i := 0; i < len(p.SonicApp.App.Flows); i++ {
+		f := p.SonicApp.App.Flows[i]
+		p.InitializeFlowComponents(&f)
 	}
 }
 
-func InitializeFlowComponents(a *core.SonicApp, flow *core.Flow) {
+func (p *DefaultPipeline) InitializeFlowComponents(flow *core.Flow) {
 	if len(flow.Components) != 0 {
 		for i := 0; i < len(flow.Components); i++ {
 			// Get the component from
@@ -27,19 +32,19 @@ func InitializeFlowComponents(a *core.SonicApp, flow *core.Flow) {
 			mapConfig := component_config.(map[string]interface{})
 			value := mapConfig["ref"]
 			if value != nil {
-				component_config = GetReferenceConfiguration(value.(string), a)
+				component_config = p.GetReferenceConfiguration(value.(string))
 			}
-			BuildPipeiline(component, component_config)
+			p.BuildPipeiline(component, component_config)
 			slog.Debug("*********** " + value.(string))
 		}
 	}
 }
 
-func GetReferenceConfiguration(component string, a *core.SonicApp) (out interface{}) {
+func (p *DefaultPipeline) GetReferenceConfiguration(component string) (out interface{}) {
 	slog.Debug("********** Get reference configuration for:" + component)
-	if len(a.App.Common) != 0 {
-		for i := 0; i < len(a.App.Common); i++ {
-			config := a.App.Common[0]
+	if len(p.SonicApp.App.Common) != 0 {
+		for i := 0; i < len(p.SonicApp.App.Common); i++ {
+			config := p.SonicApp.App.Common[0]
 			if component == config.Name {
 				return config
 			}
@@ -48,6 +53,6 @@ func GetReferenceConfiguration(component string, a *core.SonicApp) (out interfac
 	return nil
 }
 
-func BuildPipeiline(component core.Component, component_config interface{}) {
+func (p *DefaultPipeline) BuildPipeiline(component core.Component, component_config interface{}) {
 
 }

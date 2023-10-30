@@ -1,7 +1,6 @@
 package utility
 
 import (
-	"fmt"
 	"gopkg.in/yaml.v3"
 	"log"
 	"log/slog"
@@ -13,10 +12,6 @@ import (
 var logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 	Level: slog.LevelDebug,
 }))
-
-const (
-	SO_PATH = "so/"
-)
 
 func YamlToStruct(file string, in interface{}) (err error) {
 	buf, e := os.ReadFile(file)
@@ -30,8 +25,8 @@ func YamlToStruct(file string, in interface{}) (err error) {
 	return e
 }
 
-func FindComponentInSO(symbol string, kind string) {
-	path := GetSOPath(kind)
+func FindComponentInSO(sopath string, symbol string, kind string) interface{} {
+	path := GetSOPath(sopath, kind)
 
 	p, err := plugin.Open(path)
 	if err != nil {
@@ -41,14 +36,16 @@ func FindComponentInSO(symbol string, kind string) {
 	if err != nil {
 
 	}
-	fmt.Println(s)
+	return s
 }
 
-func GetSOPath(kind string) string {
-	path := "../../" + SO_PATH
+func GetSOPath(sopath string, kind string) string {
 	so := strings.Split(kind, ":")
+
+	soname := ""
 	if len(so) != 0 {
-		path = path + so[0] + "-" + so[1] + ".so"
+		soname = soname + so[0] + "-" + so[1] + ".so"
 	}
-	return path
+	sopath = sopath + soname
+	return sopath
 }
