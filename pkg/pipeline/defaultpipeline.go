@@ -1,6 +1,7 @@
 package pipeline
 
 import (
+	"fmt"
 	"github.com/cloudintegrator/go-sonic-core/api/core"
 	"log/slog"
 )
@@ -54,5 +55,5 @@ func (p *DefaultPipeline) GetReferenceConfiguration(component string) (out inter
 }
 
 func (p *DefaultPipeline) BuildPipeiline(component core.Component, component_config interface{}) {
-
+	fmt.Println()
 }
