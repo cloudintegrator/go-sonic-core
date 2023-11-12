@@ -26,17 +26,19 @@ func (p *DefaultPipeline) ParseSonicApp() {
 func (p *DefaultPipeline) InitializeFlowComponents(flow *core.Flow) {
 	if len(flow.Components) != 0 {
 		for i := 0; i < len(flow.Components); i++ {
-			// Get the component from
+			// Get the component from flow.
 			component := flow.Components[i]
 			slog.Debug("********** Initializing Component **********: " + component.Name)
 
-			// Get the component configuration
+			// Get the component configuration from Component.
 			componentConfig := component.Configuration
 			mapConfig := componentConfig.(map[string]interface{})
 			value := mapConfig["ref"]
 			if value != nil {
 				componentConfig = p.GetReferenceConfiguration(value.(string))
 			}
+
+			// Build the pipeline with Component & Component Configuration.
 			p.BuildPipeiline(component, componentConfig)
 			slog.Debug("*********** " + value.(string))
 		}
@@ -57,6 +59,9 @@ func (p *DefaultPipeline) GetReferenceConfiguration(component string) (out inter
 	return nil
 }
 
+// BuildPipeiline builds the actual pipeline with the Component extracted from Flow.
+// Based on its Kind property it will find the appropriate so (shared object) file and instantiate the components i.e
+// SonicSource, SonicProcessor etc.
 func (p *DefaultPipeline) BuildPipeiline(component core.Component, component_config interface{}) {
 	fmt.Println()
 }
