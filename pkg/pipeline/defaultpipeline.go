@@ -26,7 +26,7 @@ func (p *DefaultPipeline) InitializeFlowComponents(flow *core.Flow) {
 		for i := 0; i < len(flow.Components); i++ {
 			// Get the component from
 			component := flow.Components[i]
-			slog.Debug("********** Initilizing Component **********: " + component.Name)
+			slog.Debug("********** Initializing Component **********: " + component.Name)
 
 			// Get the component configuration
 			component_config := component.Configuration
