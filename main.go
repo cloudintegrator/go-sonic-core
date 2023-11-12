@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"github.com/cloudintegrator/go-sonic-core/api/core"
 	"log"
-	"os"
-	"path/filepath"
 	"plugin"
 )
 
@@ -21,10 +19,18 @@ func (h *Hello) Say() {
 }
 
 func main() {
-	p, _ := os.Getwd()
-	p = filepath.Base(p)
-	fmt.Println(p)
+	ch := make(chan string)
+	SendData(ch)
+	go ReceiveData(ch)
 }
+func ReceiveData(ch chan string) {
+	data := <-ch
+	fmt.Println(data)
+}
+func SendData(ch chan string) {
+	ch <- "Hello "
+}
+
 func InterfaceExample() {
 	var x IHello
 	x = &Hello{
