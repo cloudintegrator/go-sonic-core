@@ -1,5 +1,7 @@
 package core
 
+// SonicApp is the data model of the yaml application configuration.
+// When the yaml application is read by the ESB it's converted to this structure.
 type SonicApp struct {
 	App App `yaml:"app"`
 }

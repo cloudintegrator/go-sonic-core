@@ -13,6 +13,7 @@ type DefaultPipeline struct {
 	SonicApp *core.SonicApp
 }
 
+// ParseSonicApp reads yaml application i.e SonicApp.
 func (p *DefaultPipeline) ParseSonicApp() {
 	slog.Debug("********** App starting **********" + p.SonicApp.App.Name)
 	for i := 0; i < len(p.SonicApp.App.Flows); i++ {
@@ -21,6 +22,7 @@ func (p *DefaultPipeline) ParseSonicApp() {
 	}
 }
 
+// InitializeFlowComponents reads Flow element of SonicApp and traverses its Component.
 func (p *DefaultPipeline) InitializeFlowComponents(flow *core.Flow) {
 	if len(flow.Components) != 0 {
 		for i := 0; i < len(flow.Components); i++ {
@@ -29,18 +31,19 @@ func (p *DefaultPipeline) InitializeFlowComponents(flow *core.Flow) {
 			slog.Debug("********** Initializing Component **********: " + component.Name)
 
 			// Get the component configuration
-			component_config := component.Configuration
-			mapConfig := component_config.(map[string]interface{})
+			componentConfig := component.Configuration
+			mapConfig := componentConfig.(map[string]interface{})
 			value := mapConfig["ref"]
 			if value != nil {
-				component_config = p.GetReferenceConfiguration(value.(string))
+				componentConfig = p.GetReferenceConfiguration(value.(string))
 			}
-			p.BuildPipeiline(component, component_config)
+			p.BuildPipeiline(component, componentConfig)
 			slog.Debug("*********** " + value.(string))
 		}
 	}
 }
 
+// GetReferenceConfiguration reads the "ref" element (if present) in the Configuration of the Component
 func (p *DefaultPipeline) GetReferenceConfiguration(component string) (out interface{}) {
 	slog.Debug("********** Get reference configuration for:" + component)
 	if len(p.SonicApp.App.Common) != 0 {

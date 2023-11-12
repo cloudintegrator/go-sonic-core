@@ -1,6 +1,6 @@
 package core
 
-// The base component
+// SonicComponent The base component
 type SonicComponent interface {
 	Init()
 }
