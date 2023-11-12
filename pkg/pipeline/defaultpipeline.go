@@ -39,7 +39,7 @@ func (p *DefaultPipeline) InitializeFlowComponents(flow *core.Flow) {
 			}
 
 			// Build the pipeline with Component & Component Configuration.
-			p.BuildPipeiline(component, componentConfig)
+			p.BuildPipeline(component, componentConfig)
 			slog.Debug("*********** " + value.(string))
 		}
 	}
@@ -59,9 +59,9 @@ func (p *DefaultPipeline) GetReferenceConfiguration(component string) (out inter
 	return nil
 }
 
-// BuildPipeiline builds the actual pipeline with the Component extracted from Flow.
+// BuildPipeline builds the actual pipeline with the Component extracted from Flow.
 // Based on its Kind property it will find the appropriate so (shared object) file and instantiate the components i.e
 // SonicSource, SonicProcessor etc.
-func (p *DefaultPipeline) BuildPipeiline(component core.Component, component_config interface{}) {
+func (p *DefaultPipeline) BuildPipeline(component core.Component, component_config interface{}) {
 	fmt.Println()
 }
