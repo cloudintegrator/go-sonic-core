@@ -63,5 +63,5 @@ func (p *DefaultPipeline) GetReferenceConfiguration(component string) (out inter
 // Based on its Kind property it will find the appropriate so (shared object) file and instantiate the components i.e
 // SonicSource, SonicProcessor etc.
 func (p *DefaultPipeline) BuildPipeline(component core.Component, component_config interface{}) {
-	fmt.Println()
+	fmt.Println("TODO")
 }
