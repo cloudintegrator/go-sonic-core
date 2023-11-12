@@ -9,7 +9,7 @@ import (
 type SonicContextBuilder interface {
 	WG(WG *sync.WaitGroup) SonicContextBuilder
 	Ctx(Ctx *context.Context) SonicContextBuilder
-	Data(Data interface{}) SonicContextBuilder
+	Payload(Data interface{}) SonicContextBuilder
 	Build() *core.SonicContext
 }
 
@@ -28,7 +28,7 @@ func (s *sonicContextBuilder) Ctx(Ctx *context.Context) SonicContextBuilder {
 	return s
 }
 
-func (s *sonicContextBuilder) Data(Data interface{}) SonicContextBuilder {
+func (s *sonicContextBuilder) Payload(Data interface{}) SonicContextBuilder {
 	s.data = Data
 	return s
 }
