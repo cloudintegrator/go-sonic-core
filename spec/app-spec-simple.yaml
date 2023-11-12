@@ -1,0 +1,15 @@
+app:
+  name: "Hello-App"
+  kind: "core:app"
+  flows:
+    - name: "get-data-flow"
+      kind: "core:flow"
+      components:
+        - name: "log-user"
+          kind: "core:logger"
+          configuration:
+            level: "INFO"
+        - name: "log-user"
+          kind: "core:logger"
+          configuration:
+            level: "INFO"
