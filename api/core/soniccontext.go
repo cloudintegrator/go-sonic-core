@@ -9,5 +9,5 @@ import (
 type SonicContext struct {
 	WG   *sync.WaitGroup
 	Ctx  *context.Context
-	Data []interface{}
+	Data interface{}
 }
