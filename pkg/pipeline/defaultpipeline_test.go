@@ -6,10 +6,12 @@ import (
 	"testing"
 )
 
-func TestParseSonicApp(t *testing.T) {
+func TestParseSonicAppFromFile(t *testing.T) {
 	c := &core.SonicApp{}
-	utility.YamlToStruct("../../spec/app-spec.yaml", c)
+	err := utility.YamlToStruct("../../spec/app-spec.yaml", c)
+	if err != nil {
 
+	}
 	p := DefaultPipeline{
 		SOPath:   "/Users/anupam.gogoi.br/github/anupamgogoi/sonic/go-sonic-kafka-connector/plugin/",
 		SonicApp: c,
